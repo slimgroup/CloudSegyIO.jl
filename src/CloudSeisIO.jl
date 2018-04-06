@@ -1,0 +1,3 @@
+module CloudExtras
+
+end # module

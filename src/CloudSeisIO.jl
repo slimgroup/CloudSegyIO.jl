@@ -1,3 +1,3 @@
-module CloudExtras
+module CloudSeisIO
 
 end # module

@@ -6,6 +6,14 @@ SeisIO overlay for writing to Cloud buckets
 
 From julia prompt run the following if you will not need developer's write access or if you do not have GitHub account:
 
+First add SeisIO:
+
+```
+Pkg.add(PackageSpec(url="https://github.com/slimgroup/SeisIO.jl.git",rev="v07-devel"))
+```
+
+then if you just want to use CloudSeisIO
+
 ```
 Pkg.add(PackageSpec(url="https://github.com/slimgroup/CloudSeisIO.jl.git",rev="v07-devel"))
 ```

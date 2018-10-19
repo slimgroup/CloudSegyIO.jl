@@ -17,7 +17,7 @@ function read_file(aws::AWSCore.AWSConfig, bucket::String, path::String, warn_us
         end_byte = s3_get_meta(aws,bucket,path)["Content-Length"]
         end_byte = parse(Int,end_byte)
     end
-    end_byte > start_byte || error("Fatal error: start_byte ($start_byte) < end_byte ($end_byte)")
+    end_byte > start_byte || @error "Fatal error: start_byte ($start_byte) < end_byte ($end_byte)"
     data_sz = end_byte - start_byte
     max_buf_sz = buffer_size * (1024^2)
 
@@ -34,11 +34,11 @@ function read_file(aws::AWSCore.AWSConfig, bucket::String, path::String, warn_us
     if fh.bfh.DataSampleFormat == 1
         datatype = SeisIO.IBMFloat32
     elseif fh.bfh.DataSampleFormat != 5
-        error("Data type not supported ($(fh.bfh.DataSampleFormat))")
+        @error "Data type not supported ($(fh.bfh.DataSampleFormat))"
     end
 
     # Check fixed length trace flag
-    (fh.bfh.FixedLengthTraceFlag!=1 & warn_user) && warn("Fixed length trace flag set in stream: $s")
+    (fh.bfh.FixedLengthTraceFlag!=1 & warn_user) && @warn "Fixed length trace flag set in stream: $s"
     
     ## Check for extended text header
 
@@ -53,8 +53,8 @@ function read_file(aws::AWSCore.AWSConfig, bucket::String, path::String, warn_us
     debug && println(trace_idx)
 
     # Preallocate memory
-    headers = Array{BinaryTraceHeader, 1}(ntraces)
-    data = Array{datatype, 2}(fh.bfh.ns, ntraces)
+    headers = Array{BinaryTraceHeader, 1}(undef, ntraces)
+    data = Array{datatype, 2}(undef, fh.bfh.ns, ntraces)
     th_b2s = th_byte2sample()
 
     # Read buffer
@@ -92,7 +92,7 @@ function read_file(aws::AWSCore.AWSConfig, bucket::String, path::String, keys::A
         end_byte = s3_get_meta(aws,bucket,path)["Content-Length"]
         end_byte = parse(Int,end_byte)
     end
-    end_byte > start_byte || error("Fatal error: start_byte ($start_byte) < end_byte ($end_byte)")
+    end_byte > start_byte || @error "Fatal error: start_byte ($start_byte) < end_byte ($end_byte)"
     data_sz = end_byte - start_byte
     max_buf_sz = buffer_size * (1024^2)
 
@@ -109,11 +109,11 @@ function read_file(aws::AWSCore.AWSConfig, bucket::String, path::String, keys::A
     if fh.bfh.DataSampleFormat == 1
         datatype = SeisIO.IBMFloat32
     elseif fh.bfh.DataSampleFormat != 5
-        error("Data type not supported ($(fh.bfh.DataSampleFormat))")
+        @error "Data type not supported ($(fh.bfh.DataSampleFormat))"
     end
 
     # Check fixed length trace flag
-    (fh.bfh.FixedLengthTraceFlag!=1 & warn_user) && warn("Fixed length trace flag set in stream: $s")
+    (fh.bfh.FixedLengthTraceFlag!=1 & warn_user) && @warn "Fixed length trace flag set in stream: $s"
     
     ## Check for extended text header
 
@@ -128,8 +128,8 @@ function read_file(aws::AWSCore.AWSConfig, bucket::String, path::String, keys::A
     debug && println(trace_idx)
 
     # Preallocate memory
-    headers = Array{BinaryTraceHeader, 1}(ntraces)
-    data = Array{datatype, 2}(fh.bfh.ns, ntraces)
+    headers = Array{BinaryTraceHeader, 1}(undef, ntraces)
+    data = Array{datatype, 2}(undef, fh.bfh.ns, ntraces)
     th_b2s = th_byte2sample()
 
     # Read buffer

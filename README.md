@@ -9,13 +9,13 @@ From julia prompt run the following if you will not need developer's write acces
 First add SeisIO:
 
 ```
-Pkg.add(PackageSpec(url="https://github.com/slimgroup/SeisIO.jl.git",rev="v07-devel"))
+Pkg.add(PackageSpec(url="https://github.com/slimgroup/SeisIO.jl.git",rev="master"))
 ```
 
 then if you just want to use CloudSeisIO
 
 ```
-Pkg.add(PackageSpec(url="https://github.com/slimgroup/CloudSeisIO.jl.git",rev="v07-devel"))
+Pkg.add(PackageSpec(url="https://github.com/slimgroup/CloudSeisIO.jl.git",rev="master"))
 ```
 
 or with GitHub account (and SSH keys registered) for full developer access:

@@ -22,7 +22,7 @@ function read_file(aws::AWSCore.AWSConfig, bucket::String, path::String, warn_us
     max_buf_sz = buffer_size * (1024^2)
 
     # Read File Header
-    s=IOBuffer(AWSS3SeisIO.my_s3_get_range(aws,bucket,path,0,3599))
+    s=IOBuffer(AWSS3SegyIO.my_s3_get_range(aws,bucket,path,0,3599))
     fh = read_fileheader(s)
     
     # Move to start of block
@@ -32,7 +32,7 @@ function read_file(aws::AWSCore.AWSConfig, bucket::String, path::String, warn_us
     # Check datatype of file
     datatype = Float32
     if fh.bfh.DataSampleFormat == 1
-        datatype = SeisIO.IBMFloat32
+        datatype = SegyIO.IBMFloat32
     elseif fh.bfh.DataSampleFormat != 5
         @error "Data type not supported ($(fh.bfh.DataSampleFormat))"
     end
@@ -61,12 +61,12 @@ function read_file(aws::AWSCore.AWSConfig, bucket::String, path::String, warn_us
     for buffer=1:nbuffers
         buffer_start = start_byte + (trace_idx[buffer]-1)*trace_byte_len
         buffer_end = start_byte + (trace_idx[buffer+1]-1)*trace_byte_len-1
-        s=IOBuffer(AWSS3SeisIO.my_s3_get_range(aws,bucket,path,buffer_start,buffer_end))
+        s=IOBuffer(AWSS3SegyIO.my_s3_get_range(aws,bucket,path,buffer_start,buffer_end))
         # Read each trace
         for trace in trace_idx[buffer]:trace_idx[buffer+1]-1
 
             verbose && println("buffer $buffer $buffer_start $buffer_end trace $trace $(position(s)) $(position(s)+trace_byte_len-1)")
-            SeisIO.read_trace!(s, fh.bfh, datatype, headers, data, trace, th_b2s)
+            SegyIO.read_trace!(s, fh.bfh, datatype, headers, data, trace, th_b2s)
 
         end
     end
@@ -97,7 +97,7 @@ function read_file(aws::AWSCore.AWSConfig, bucket::String, path::String, keys::A
     max_buf_sz = buffer_size * (1024^2)
 
     # Read File Header
-    s=IOBuffer(AWSS3SeisIO.my_s3_get_range(aws,bucket,path,0,3599))
+    s=IOBuffer(AWSS3SegyIO.my_s3_get_range(aws,bucket,path,0,3599))
     fh = read_fileheader(s)
     
     # Move to start of block
@@ -107,7 +107,7 @@ function read_file(aws::AWSCore.AWSConfig, bucket::String, path::String, keys::A
     # Check datatype of file
     datatype = Float32
     if fh.bfh.DataSampleFormat == 1
-        datatype = SeisIO.IBMFloat32
+        datatype = SegyIO.IBMFloat32
     elseif fh.bfh.DataSampleFormat != 5
         @error "Data type not supported ($(fh.bfh.DataSampleFormat))"
     end
@@ -136,12 +136,12 @@ function read_file(aws::AWSCore.AWSConfig, bucket::String, path::String, keys::A
     for buffer=1:nbuffers
         buffer_start = start_byte + (trace_idx[buffer]-1)*trace_byte_len
         buffer_end = start_byte + (trace_idx[buffer+1]-1)*trace_byte_len-1
-        s=IOBuffer(AWSS3SeisIO.my_s3_get_range(aws,bucket,path,buffer_start,buffer_end))
+        s=IOBuffer(AWSS3SegyIO.my_s3_get_range(aws,bucket,path,buffer_start,buffer_end))
         # Read each trace
         for trace in trace_idx[buffer]:trace_idx[buffer+1]-1
 
             verbose && println("buffer $buffer $buffer_start $buffer_end trace $trace $(position(s)) $(position(s)+trace_byte_len-1)")
-            SeisIO.read_trace!(s, fh.bfh, datatype, headers, data, trace, keys, th_b2s)
+            SegyIO.read_trace!(s, fh.bfh, datatype, headers, data, trace, keys, th_b2s)
 
         end
     end

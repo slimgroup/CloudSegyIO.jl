@@ -1,5 +1,5 @@
-name = "CloudSeisIO"
-uuid = "233503fd-0fda-4e25-be81-ddef06e66937"
+name = "CloudSegyIO"
+uuid = "23f7647f-51ad-45b5-ae2a-ffae49347e76"
 authors = ["Henryk Modzelewski <henryk_modzelewski@mac.com>"]
 version = "0.7.0"
 

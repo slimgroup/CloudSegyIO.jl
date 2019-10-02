@@ -2,4 +2,4 @@ julia 0.7
 AWSCore
 AWSS3
 Retry
-SeisIO
+SegyIO

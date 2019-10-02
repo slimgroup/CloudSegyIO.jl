@@ -1,12 +1,12 @@
-module AWSS3SeisIO
+module AWSS3SegyIO
     using AWSCore
         using AWSS3
     using Retry
-    using SeisIO
+    using SegyIO
     using ..common: trace_buffer_parts
 
-    # SeisIO imports
-    import SeisIO: read_file, segy_read
+    # SegyIO imports
+    import SegyIO: read_file, segy_read
 
     #Reader
     include("read/AWSS3extras.jl")

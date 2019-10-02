@@ -1,4 +1,4 @@
-using CloudSeisIO
+using CloudSegyIO
 using Base.Test
 
 # write your own tests here

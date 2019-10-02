@@ -13,7 +13,7 @@ block = segy_read(gcp::GoogleCloud.credentials.JSONCredentials, bucket::String, 
 function segy_read(gcp::GoogleCloud.credentials.JSONCredentials, bucket::String, path::String; multipart::Bool=false, buffer_size::Int=1024, warn_user::Bool=true)
     
     if multipart
-        error("GCPBucketSeisIO/segy_read: multipart read is not supported")
+        error("GCPBucketSegyIO/segy_read: multipart read is not supported")
     else
         session=GoogleSession(gcp, ["devstorage.full_control"])
         set_session!(GoogleCloud.storage, session)
@@ -36,7 +36,7 @@ block = segy_read(gcp::GoogleCloud.credentials.JSONCredentials, bucket::String, 
 function segy_read(gcp::GoogleCloud.credentials.JSONCredentials, bucket::String, path::String, keys::Array{String,1}; multipart::Bool=false, buffer_size::Int=1024, warn_user::Bool=true)
     
     if multipart
-        error("GCPBucketSeisIO/segy_read: multipart read is not supported")
+        error("GCPBucketSegyIO/segy_read: multipart read is not supported")
     else
         session=GoogleSession(gcp, ["devstorage.full_control"])
         set_session!(GoogleCloud.storage, session)

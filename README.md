@@ -1,2 +1,2 @@
-# CloudSeisIO.jl
-SeisIO overlay for writing to Cloud buckets
+# CloudSegyIO.jl
+SegyIO overlay for writing to Cloud buckets

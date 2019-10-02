@@ -12,7 +12,7 @@ block = segy_read(aws::AWSCore.AWSConfig, bucket::String, path::String)
 """
 function segy_read(aws::AWSCore.AWSConfig, bucket::String, path::String; multipart::Bool=false, buffer_size::Int=1024, warn_user::Bool=true)
     
-    s3_exists(aws, bucket, path) || error("AWSS3SeisIO/segy_read: file $path does not exist in $bucket.")
+    s3_exists(aws, bucket, path) || error("AWSS3SegyIO/segy_read: file $path does not exist in $bucket.")
     if multipart
         return read_file(aws, bucket, path, warn_user)
     else
@@ -34,7 +34,7 @@ block = segy_read(aws::AWSCore.AWSConfig, bucket::String, path::String, keys::Ar
 """
 function segy_read(aws::AWSCore.AWSConfig, bucket::String, path::String, keys::Array{String,1}; multipart::Bool=false, buffer_size::Int=1024, warn_user::Bool=true)
     
-    s3_exists(aws, bucket, path) || error("AWSS3SeisIO/segy_read: file $path does not exist in $bucket.")
+    s3_exists(aws, bucket, path) || error("AWSS3SegyIO/segy_read: file $path does not exist in $bucket.")
     if multipart
         return read_file(aws, bucket, path, keys, warn_user)
     else

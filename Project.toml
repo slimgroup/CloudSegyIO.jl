@@ -1,7 +1,7 @@
 name = "CloudSegyIO"
 uuid = "23f7647f-51ad-45b5-ae2a-ffae49347e76"
 authors = ["Henryk Modzelewski <henryk_modzelewski@mac.com>"]
-version = "0.7.0"
+version = "1.0.0"
 
 [deps]
 AWS = "fbe9abb3-538b-5e4e-ba9e-bc94f4f92ebc"

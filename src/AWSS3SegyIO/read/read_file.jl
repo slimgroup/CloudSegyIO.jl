@@ -6,7 +6,7 @@ read_file(aws,bicket,path,warn_user)
 Read entire SEGY files from object in the AWS S3 bucket.
 
 """
-function read_file(aws::AWSCore.AWSConfig, bucket::String, path::String, warn_user::Bool;
+function read_file(aws::AWS.AWSConfig, bucket::String, path::String, warn_user::Bool;
     buffer_size::Int=1024, start_byte::Int=3600, end_byte::Int=0 )
     
     verbose = false
@@ -81,7 +81,7 @@ Read entire SEGY files from object in the AWS S3 bucket,
 only reading the header values in 'keys'.
 
 """
-function read_file(aws::AWSCore.AWSConfig, bucket::String, path::String, keys::Array{String,1}, warn_user::Bool;
+function read_file(aws::AWS.AWSConfig, bucket::String, path::String, keys::Array{String,1}, warn_user::Bool;
     buffer_size::Int=1024, start_byte::Int=3600, end_byte::Int=0 )
     
     verbose = false

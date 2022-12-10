@@ -2,6 +2,7 @@ module CloudSegyIO
 
 include("common.jl")
 include("AWSS3SegyIO/AWSS3SegyIO.jl")
-export AWSS3SegyIO
+include("AzureBlobSegyIO/AzureBlobSegyIO.jl")
+export AWSS3SegyIO, AzureBlobSegyIO
 
 end # module

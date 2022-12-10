@@ -1,7 +1,7 @@
 export segy_read
 
 """
-block = segy_read(aws::AWSCore.AWSConfig, bucket::String, path::String)
+block = segy_read(aws::AWS.AWSConfig, bucket::String, path::String)
 
 # Optional Keyword Arguments
 
@@ -10,7 +10,7 @@ block = segy_read(aws::AWSCore.AWSConfig, bucket::String, path::String)
 - `warn_user=true`: explict warnings
 
 """
-function segy_read(aws::AWSCore.AWSConfig, bucket::String, path::String; multipart::Bool=false, buffer_size::Int=1024, warn_user::Bool=true)
+function segy_read(aws::AWS.AWSConfig, bucket::String, path::String; multipart::Bool=false, buffer_size::Int=1024, warn_user::Bool=true)
     
     s3_exists(aws, bucket, path) || @error "AWSS3SegyIO/segy_read: file $path does not exist in $bucket."
     if multipart
@@ -23,7 +23,7 @@ function segy_read(aws::AWSCore.AWSConfig, bucket::String, path::String; multipa
 end
 
 """
-block = segy_read(aws::AWSCore.AWSConfig, bucket::String, path::String, keys::Array{String,1})
+block = segy_read(aws::AWS.AWSConfig, bucket::String, path::String, keys::Array{String,1})
 
 # Optional Keyword Arguments
 
@@ -32,7 +32,7 @@ block = segy_read(aws::AWSCore.AWSConfig, bucket::String, path::String, keys::Ar
 - `warn_user=true`: explict warnings
 
 """
-function segy_read(aws::AWSCore.AWSConfig, bucket::String, path::String, keys::Array{String,1}; multipart::Bool=false, buffer_size::Int=1024, warn_user::Bool=true)
+function segy_read(aws::AWS.AWSConfig, bucket::String, path::String, keys::Array{String,1}; multipart::Bool=false, buffer_size::Int=1024, warn_user::Bool=true)
     
     s3_exists(aws, bucket, path) || @error "AWSS3SegyIO/segy_read: file $path does not exist in $bucket."
     if multipart

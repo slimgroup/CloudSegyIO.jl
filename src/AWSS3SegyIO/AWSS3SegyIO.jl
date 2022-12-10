@@ -1,6 +1,6 @@
 module AWSS3SegyIO
-    using AWSCore
-        using AWSS3
+    using AWS
+
     using Retry
     using SegyIO
     using ..common: trace_buffer_parts

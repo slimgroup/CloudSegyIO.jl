@@ -5,6 +5,7 @@ version = "0.7.0"
 
 [deps]
 AWS = "fbe9abb3-538b-5e4e-ba9e-bc94f4f92ebc"
+AWSS3 = "1c724243-ef5b-51ab-93f4-b0a88ac62a95"
 AzStorage = "c6697862-1611-5eae-9ef8-48803c85c8d6"
 Distributed = "8ba89e20-285c-5b6f-9357-94700520ee1b"
 Retry = "20febd7b-183b-5ae2-ac4a-720e7ce64774"
@@ -13,3 +14,8 @@ Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 
 [compat]
 julia = ">= 0.7"
+AWS = "1.79.0"
+AWSS3 = "0.10"
+AzStorage = "2.2.0"
+Retry = "0.4.1"
+SegyIO = "0.8"

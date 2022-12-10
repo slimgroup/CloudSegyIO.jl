@@ -25,6 +25,7 @@ module AzureBlobSegyIO
 
     Base.filesize(f::AzFileIO) = filesize(f.o)
     Base.close(::AzFileIO) = nothing
+    Base.open(::AzFileIO) = nothing
 
     Base.seek(s::AzFileIO, pos::Integer) = begin s.offset = pos; s end
     Base.skip(s::AzFileIO, nb::Integer) = begin s.offset += nb; s end
@@ -53,7 +54,6 @@ module AzureBlobSegyIO
         end
     end
 
-
     # SegyIO
     function SegyIO.segy_read(container::AzContainer, name::AbstractString; warn_user::Bool = true)
         mkpath(container)
@@ -61,30 +61,21 @@ module AzureBlobSegyIO
         read_file(s, warn_user)
     end
 
+    function SegyIO.segy_write(container::AzContainer, name::AbstractString, block::SeisBlock)
+        io = IOBuffer(;write=true, read=true)
+        segy_write(io, block)
+        AzStorage.writebytes(container, name, take!(io); contenttype="application/octet-stream")
+        close(io)
+    end
+
     function SegyIO.segy_scan(container::AzContainer, filt::Union{String, Regex}, keys::Array{String,1}; 
                               chunksize::Int = SegyIO.CHUNKSIZE, pool::WorkerPool=WorkerPool(workers()),
                               verbosity::Int = 1,  filter::Bool = true)
         filenames = filter ? SegyIO.searchdir(container, filt) : [filt]
-        @show filenames
         files = map(x -> AzBlobFile(container, string(x)), filenames)
-        @show files
         run_scan(f) = scan_file(f, keys, chunksize=chunksize, verbosity=verbosity)
         s = pmap(run_scan, pool, files)
         return merge(s)
     end
 
-    function scan_chunk!(s::AzFileIO, max_blocks_per_chunk::Int, mem_block::Int, mem_trace::Int,
-                        keys::Array{String,1}, file::String, scan::Array{BlockScan,1}, count::Int)
-                    
-        io = IOBuffer(read(s, max_blocks_per_chunk*mem_block))
-        scan_chunk!(io, max_blocks_per_chunk, mem_block, mem_trace, keys, file, scan, count)
-    end
-
-    function scan_shots!(s::AzFileIO, mem_chunk::Int, mem_trace::Int, keys::Array{String,1},
-                         file::String, scan::Array{BlockScan,1}, fl_eof::Bool)
-
-        @show div(mem_chunk, 4), filesize(s)
-        io = IOBuffer(read(s, div(mem_chunk, 4)))
-        scan_shots!(io, mem_chunk, mem_trace, keys, file, scan,fl_eof)
-    end
 end

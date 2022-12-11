@@ -13,7 +13,7 @@ SegyIO = "157a0f19-4d44-4de5-a0d0-07e2f0ac4dfa"
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 
 [compat]
-julia = ">= 0.7"
+julia = "1"
 AWS = "1.79.0"
 AWSS3 = "0.10"
 AzStorage = "2.2.0"

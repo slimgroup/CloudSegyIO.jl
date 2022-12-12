@@ -1,7 +1,7 @@
 name = "CloudSegyIO"
 uuid = "23f7647f-51ad-45b5-ae2a-ffae49347e76"
 authors = ["Henryk Modzelewski <henryk_modzelewski@mac.com>"]
-version = "1.0.0"
+version = "1.0.1"
 
 [deps]
 AWS = "fbe9abb3-538b-5e4e-ba9e-bc94f4f92ebc"
@@ -18,4 +18,4 @@ AWS = "1.79.0"
 AWSS3 = "0.10"
 AzStorage = "2.2.0"
 Retry = "0.4.1"
-SegyIO = "0.8"
+SegyIO = "0.8.1"
